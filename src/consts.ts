@@ -8,6 +8,12 @@ export const TEMA_COLORES: Record<string, string> = {
   COMERCIO: '#C89B4A',
   INDUSTRIA: '#A85C36',
   AGUA: '#4E7E84',
+  ENERGÍA: '#C89B4A',
+  SOSTENIBILIDAD: '#3D6B4A',
+  DIGITAL: '#4E7E84',
+  UE: '#2C4E36',
+  ESPAÑA: '#A85C36',
+  ACTUALIDAD: '#6F6F64',
 };
 
 export const PUBLICACIONES = [
