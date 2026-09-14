@@ -1,6 +1,6 @@
 export const SITE_TITLE = 'Carlos Cabeza Doña';
 export const SITE_DESCRIPTION = 'Política europea, de Bruselas al territorio';
-export const EMAIL = 'carlos.cabezadona@coleurope.eu';
+export const EMAIL = 'carloscabezadona@gmail.com';
 export const LINKEDIN = 'https://www.linkedin.com/in/carlos--cabeza';
 
 // Color de cada tema (clave en mayúsculas). Si un tema no está, usa el verde.
