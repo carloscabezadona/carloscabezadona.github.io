@@ -204,6 +204,10 @@ article .art-nota{
   text-align:center;font-size:0.85rem;color:var(--soft);font-style:italic;
   max-width:52ch;margin:16px auto 0;padding:0 30px;line-height:1.6;
 }
+article .art-img{max-width:760px;margin:36px auto 0;padding:0 30px;}
+article .art-img img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;max-width:100%;}
+article .art-img figcaption{font-size:0.72rem;color:var(--soft);letter-spacing:0.03em;margin-top:8px;text-align:right;line-height:1.5;}
+@media(max-width:640px){article .art-img{padding:0;}article .art-img figcaption{padding:0 22px;}}
 article .body .claves{
   background:var(--warm);border-top:1px solid var(--green);
   padding:22px 26px 6px;margin:0 0 30px;

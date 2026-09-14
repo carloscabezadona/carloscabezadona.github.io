@@ -84,9 +84,27 @@ fecha: AAAA-MM-DD
 tema: Energía
 descripcion: "…"
 nota: "Opcional: origen o coautoría."
+imagen: "/imagenes/slug-descriptivo.jpg"
+imagenAlt: "Descripción literal de lo que se ve."
+imagenCredito: "Qué muestra. Foto: Autor, Fuente, Licencia."
 borrador: true
 ---
 ```
+
+## Imagen de cada análisis
+
+Cada análisis lleva **una imagen** que se muestra bajo el título y se usa al compartir en redes.
+
+- **Qué buscar:** algo concreto y real relacionado con el asunto (un puerto con acero para comercio, una subestación o parque eólico para energía, un embalse para agua, un centro de datos o chips para digital, el Berlaymont / Consejo / hemiciclo para asuntos institucionales). Fotografía documental, sin montajes, sin ilustraciones genéricas de IA ni imágenes de stock «de ejecutivos».
+- **Fuentes permitidas (solo estas):**
+  - Wikimedia Commons con licencia CC0, CC BY o CC BY-SA (API: `https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrsearch=TERMINOS%20filetype:bitmap&gsrlimit=15&prop=imageinfo&iiprop=url|size|extmetadata&iiurlwidth=1920`, enviar cabecera User-Agent).
+  - Flickr oficial del Parlamento Europeo o del Consejo de la UE, solo si la foto concreta tiene licencia Creative Commons.
+  - Nunca imágenes de prensa, Google Images ni fuentes sin licencia clara. Evitar fotos donde personas privadas sean identificables.
+- **Tamaño:** mínimo 1200 px de ancho, horizontal.
+- **Procesado:** descargar dentro del proyecto y convertir a 1600×900 JPG con sharp (ya instalado):
+  `node -e "require('sharp')('tmp.jpg').resize(1600,900,{fit:'cover'}).jpeg({quality:80,mozjpeg:true}).toFile('public/imagenes/SLUG.jpg')"` y borrar el temporal.
+- **Crédito obligatorio** en `imagenCredito`, con autor, fuente y licencia exactos según los metadatos.
+- Si no hay una imagen adecuada con licencia clara, **mejor sin imagen** que una dudosa.
 
 ## Flujo de borradores
 

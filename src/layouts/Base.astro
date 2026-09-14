@@ -10,12 +10,13 @@ interface Props {
   description?: string;
   type?: 'website' | 'article';
   publishedTime?: Date;
+  image?: string;
 }
 
-const { title, description = SITE_DESCRIPTION, type = 'website', publishedTime } = Astro.props;
+const { title, description = SITE_DESCRIPTION, type = 'website', publishedTime, image } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(url('/og.png'), Astro.site);
+const ogImage = new URL(url(image ?? '/og.png'), Astro.site);
 ---
 <!doctype html>
 <html lang="es">
@@ -37,8 +38,8 @@ const ogImage = new URL(url('/og.png'), Astro.site);
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  {!image && <meta property="og:image:width" content="1200" />}
+  {!image && <meta property="og:image:height" content="630" />}
   {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title ?? SITE_TITLE} />

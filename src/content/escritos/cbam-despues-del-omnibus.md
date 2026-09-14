@@ -4,6 +4,9 @@ fecha: 2026-09-14
 tema: Comercio
 descripcion: "La simplificación del mecanismo de ajuste en frontera por carbono mantiene casi todas las emisiones cubiertas, pero abre dos vías de elusión que la UE ya intenta cerrar."
 nota: "Basado en el policy brief «The CBAM after Omnibus I» (College of Europe / IEE-ULB, julio 2026), elaborado con Alice Fleury-Isambert, Justine Fourré, Mustafa Gülderen y Andrea Valera Córdoba."
+imagen: "/imagenes/cbam-puerto-carrara.jpg"
+imagenAlt: "Bobinas de acero y contenedores en el muelle del puerto de Carrara, junto a un buque de carga."
+imagenCredito: "Bobinas de acero en el puerto de Carrara (Italia). Foto: Basilicofresco, Wikimedia Commons, CC BY-SA 4.0."
 ---
 
 El Mecanismo de Ajuste en Frontera por Carbono (CBAM) es la principal herramienta de la UE contra la fuga de carbono. Con el paquete Ómnibus I se ha simplificado de forma notable. La pregunta relevante no es si ahora es más fácil de cumplir, que lo es, sino si sigue haciendo lo que debe.

@@ -11,6 +11,10 @@ const escritos = defineCollection({
     borrador: z.boolean().default(false),
     // Opcional: origen o coautoría, se muestra bajo el título.
     nota: z.string().optional(),
+    // Opcional: imagen en public/imagenes/ (ruta "/imagenes/x.jpg"), texto alternativo y crédito/licencia.
+    imagen: z.string().optional(),
+    imagenAlt: z.string().optional(),
+    imagenCredito: z.string().optional(),
   }),
 });
 

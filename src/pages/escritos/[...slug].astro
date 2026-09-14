@@ -10,9 +10,9 @@ export async function getStaticPaths() {
 
 const { entrada } = Astro.props;
 const { Content } = await render(entrada);
-const { titulo, fecha, tema, descripcion, nota } = entrada.data;
+const { titulo, fecha, tema, descripcion, nota, imagen, imagenAlt, imagenCredito } = entrada.data;
 ---
-<Base title={titulo} description={descripcion} type="article" publishedTime={fecha}>
+<Base title={titulo} description={descripcion} type="article" publishedTime={fecha} image={imagen}>
   <article>
     <div class="art-meta">{tema.toUpperCase()} &nbsp;·&nbsp; <time datetime={fecha.toISOString()}>{mesAnio(fecha)}</time></div>
     <h1>{titulo}</h1>
@@ -22,6 +22,12 @@ const { titulo, fecha, tema, descripcion, nota } = entrada.data;
       <path d="M23 13c0-4 1.6-6.6 4.6-7.6C27.1 10 25.5 12 23 13Z" fill="#3D6B4A" opacity=".7"/>
       <path d="M23 13c0-4-1.6-6.6-4.6-7.6C18.9 10 20.5 12 23 13Z" fill="#3D6B4A" opacity=".4"/>
     </svg>
+    {imagen && (
+      <figure class="art-img">
+        <img src={url(imagen)} alt={imagenAlt ?? ''} loading="eager" />
+        {imagenCredito && <figcaption>{imagenCredito}</figcaption>}
+      </figure>
+    )}
     <div class="body">
       <Content />
     </div>
