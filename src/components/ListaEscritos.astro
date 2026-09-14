@@ -1,18 +1,27 @@
 ---
-import { escritosOrdenados, mesAnio, colorTema, url } from '../utils';
+import { escritosOrdenados, mesAnio, colorTema, slugTema, minutosLectura, url, type Escrito } from '../utils';
 
-interface Props { limite?: number }
-const { limite } = Astro.props;
-const escritos = (await escritosOrdenados()).slice(0, limite);
+interface Props { limite?: number; desde?: number; lista?: Escrito[] }
+const { limite, desde = 0, lista } = Astro.props;
+const escritos = (lista ?? (await escritosOrdenados())).slice(desde, limite === undefined ? undefined : desde + limite);
 ---
 <div class="writing">
   {escritos.map((e) => (
-    <div class="item" style={`--tc:${colorTema(e.data.tema)}`}>
-      <div class="meta">{mesAnio(e.data.fecha)}<br /><span class="tema">{e.data.tema.toUpperCase()}</span></div>
+    <div class:list={['item', { 'con-img': e.data.imagen }]} style={`--tc:${colorTema(e.data.tema)}`}>
+      <div class="meta">
+        {mesAnio(e.data.fecha)}<br />
+        <a class="tema" href={url(`/temas/${slugTema(e.data.tema)}/`)}>{e.data.tema.toUpperCase()}</a><br />
+        <span class="min">{minutosLectura(e)} MIN</span>
+      </div>
       <div>
         <h3><a href={url(`/escritos/${e.id}/`)}>{e.data.titulo}</a></h3>
         <div class="dek">{e.data.descripcion}</div>
       </div>
+      {e.data.imagen && (
+        <a class="thumb" href={url(`/escritos/${e.id}/`)} tabindex="-1" aria-hidden="true">
+          <img src={url(e.data.imagen)} alt="" loading="lazy" />
+        </a>
+      )}
     </div>
   ))}
 </div>

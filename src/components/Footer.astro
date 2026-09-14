@@ -1,8 +1,27 @@
 ---
-import { LINKEDIN } from '../consts';
+import { LINKEDIN, EMAIL, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { url } from '../utils';
+const anio = new Date().getFullYear();
 ---
 <footer>
-  <div class="fm">C · C</div>
-  <div><a href={LINKEDIN}>LinkedIn</a> &nbsp;·&nbsp; <a href={url('/rss.xml')}>RSS</a></div>
+  <div class="foot-grid">
+    <div class="foot-col foot-marca">
+      <div class="fm">C · C</div>
+      <p>{SITE_TITLE}<br /><em>{SITE_DESCRIPTION}</em></p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-h">SECCIONES</div>
+      <a href={url('/escritos/')}>Análisis</a>
+      <a href={url('/publicaciones/')}>Publicaciones</a>
+      <a href={url('/sobre-mi/')}>Sobre mí</a>
+      <a href={url('/escribeme/')}>Escríbeme</a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-h">SEGUIR</div>
+      <a href={LINKEDIN}>LinkedIn</a>
+      <a href={`mailto:${EMAIL}`}>Email</a>
+      <a href={url('/rss.xml')}>RSS</a>
+    </div>
+  </div>
+  <div class="foot-legal">© {anio} {SITE_TITLE}. Opiniones a título personal. Imágenes con licencia libre, créditos en cada artículo.</div>
 </footer>

@@ -1,0 +1,14 @@
+---
+import { temasUsados, colorTema, url } from '../utils';
+interface Props { activo?: string }
+const { activo } = Astro.props;
+const temas = await temasUsados();
+---
+<nav class="temas" aria-label="Temas">
+  <a href={url('/escritos/')} class:list={{ on: !activo }}>Todos</a>
+  {temas.map((t) => (
+    <a href={url(`/temas/${t.slug}/`)} class:list={{ on: activo === t.slug }} style={`--tc:${colorTema(t.tema)}`}>
+      {t.tema}
+    </a>
+  ))}
+</nav>

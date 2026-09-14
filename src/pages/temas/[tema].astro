@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import ListaEscritos from '../../components/ListaEscritos.astro';
+import Temas from '../../components/Temas.astro';
+import { escritosOrdenados, temasUsados, slugTema } from '../../utils';
+
+export async function getStaticPaths() {
+  const todos = await escritosOrdenados();
+  return (await temasUsados()).map((t) => ({
+    params: { tema: t.slug },
+    props: { nombre: t.tema, lista: todos.filter((e) => slugTema(e.data.tema) === t.slug) },
+  }));
+}
+
+const { nombre, lista } = Astro.props;
+const { tema } = Astro.params;
+const n = lista.length;
+---
+<Base title={`${nombre} · Análisis`} description={`Análisis de política europea sobre ${nombre.toLowerCase()}.`}>
+  <div class="band warm">
+    <div class="band-inner">
+      <h1 class="eyebrow">{nombre}</h1>
+      <p class="eyebrow-note">{n} {n === 1 ? 'análisis' : 'análisis'} sobre este tema.</p>
+      <Temas activo={tema} />
+      <ListaEscritos lista={lista} />
+    </div>
+  </div>
+</Base>

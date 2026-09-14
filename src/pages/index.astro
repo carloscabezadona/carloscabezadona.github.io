@@ -2,7 +2,13 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ListaEscritos from '../components/ListaEscritos.astro';
+import Destacado from '../components/Destacado.astro';
+import Temas from '../components/Temas.astro';
 import Secciones from '../components/Secciones.astro';
+import { escritosOrdenados, url } from '../utils';
+
+const escritos = await escritosOrdenados();
+const LIMITE = 5;
 ---
 <Base>
   <Hero />
@@ -18,7 +24,12 @@ import Secciones from '../components/Secciones.astro';
     <div class="band-inner">
       <h2 class="eyebrow">Análisis</h2>
       <p class="eyebrow-note">Política europea en clave institucional: normas, negociaciones y efectos.</p>
-      <ListaEscritos />
+      {escritos[0] && <Destacado entrada={escritos[0]} />}
+      <Temas />
+      <ListaEscritos lista={escritos} desde={1} limite={LIMITE} />
+      {escritos.length > LIMITE + 1 && (
+        <p class="ver-todos"><a href={url('/escritos/')}>Ver todos los análisis →</a></p>
+      )}
     </div>
   </div>
 

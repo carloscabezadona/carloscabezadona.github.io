@@ -1,0 +1,23 @@
+---
+import { mesAnio, colorTema, slugTema, minutosLectura, url, type Escrito } from '../utils';
+interface Props { entrada: Escrito }
+const { entrada: e } = Astro.props;
+const href = url(`/escritos/${e.id}/`);
+---
+<div class:list={['destacado', { 'sin-img': !e.data.imagen }]} style={`--tc:${colorTema(e.data.tema)}`}>
+  {e.data.imagen && (
+    <a class="d-img" href={href} tabindex="-1" aria-hidden="true">
+      <img src={url(e.data.imagen)} alt="" loading="eager" />
+    </a>
+  )}
+  <div class="d-txt">
+    <div class="d-kicker">
+      <span>ÚLTIMO ANÁLISIS</span>
+      <a class="tema" href={url(`/temas/${slugTema(e.data.tema)}/`)}>{e.data.tema.toUpperCase()}</a>
+    </div>
+    <h3><a href={href}>{e.data.titulo}</a></h3>
+    <p class="dek">{e.data.descripcion}</p>
+    <div class="d-meta">{mesAnio(e.data.fecha)} &nbsp;·&nbsp; {minutosLectura(e)} MIN DE LECTURA</div>
+    <a class="d-more" href={href}>Leer el análisis <span aria-hidden="true">→</span></a>
+  </div>
+</div>
