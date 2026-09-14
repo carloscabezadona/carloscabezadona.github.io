@@ -335,6 +335,13 @@ article .body h2{padding-top:10px;border-top:1px solid var(--line);}
 .sigue-card:hover .t{color:var(--green);}
 .sigue-card .m{font-size:0.72rem;letter-spacing:0.08em;color:var(--soft);}
 
+/* retrato */
+.retrato{
+  display:block;width:168px;height:168px;max-width:100%;border-radius:50%;object-fit:cover;object-position:50% 20%;
+  margin:0 auto 22px;border:1px solid var(--line);
+  box-shadow:0 0 0 6px var(--bone),0 14px 30px -18px rgba(35,36,32,.45);
+}
+
 /* pie */
 footer{text-align:left;padding:54px 30px 30px;}
 .foot-grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:30px;}

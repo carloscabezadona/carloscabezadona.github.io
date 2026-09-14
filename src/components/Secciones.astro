@@ -1,6 +1,7 @@
 ---
 // Bloques estáticos compartidos entre la portada y sus páginas propias.
 import { EMAIL, PUBLICACIONES } from '../consts';
+import { url } from '../utils';
 interface Props { seccion: 'publicaciones' | 'sobre-mi' | 'escribeme'; warm?: boolean }
 const { seccion, warm = false } = Astro.props;
 ---
@@ -24,6 +25,7 @@ const { seccion, warm = false } = Astro.props;
 {seccion === 'sobre-mi' && (
   <div class:list={['band', { warm }]}>
     <div class="band-inner">
+      <img class="retrato" src={url('/imagenes/carlos-cabeza.jpg')} alt="Carlos Cabeza Doña" width="400" height="400" loading="lazy" />
       <h2 class="eyebrow">Sobre mí</h2>
       <div class="about-text">
         <p>Soy jurista, de Barcelona, y trabajo en asuntos europeos desde Bruselas. Me formé en Derecho y Gestión Pública y hoy estoy vinculado al Colegio de Europa.</p>
