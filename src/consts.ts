@@ -5,7 +5,7 @@ export const LINKEDIN = 'https://www.linkedin.com/in/carlos--cabeza';
 
 // Analítica sin cookies (GoatCounter). Pon aquí tu código, p. ej. 'carloscabezadona'.
 // Vacío = sin analítica.
-export const GOATCOUNTER = '';
+export const GOATCOUNTER = 'carloscabezadona';
 
 // Color de cada tema (clave en mayúsculas). Si un tema no está, usa el verde.
 export const TEMA_COLORES: Record<string, string> = {
