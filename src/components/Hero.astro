@@ -1,5 +1,8 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE } from '../consts';
+import { T, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 ---
 <div class="hero">
   <svg class="scene" viewBox="0 0 1400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -60,6 +63,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
   <div class="veil"></div>
   <div class="inner">
     <h1>{SITE_TITLE}</h1>
-    <div class="sub">{SITE_DESCRIPTION}</div>
+    <div class="sub">{T[lang].descripcion}</div>
   </div>
 </div>

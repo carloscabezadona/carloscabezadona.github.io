@@ -1,27 +1,31 @@
 ---
-import { LINKEDIN, EMAIL, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { LINKEDIN, EMAIL, SITE_TITLE } from '../consts';
+import { RUTAS, T, type Lang } from '../i18n';
 import { url } from '../utils';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
 const anio = new Date().getFullYear();
 ---
 <footer>
   <div class="foot-grid">
     <div class="foot-col foot-marca">
       <div class="fm">C · C</div>
-      <p>{SITE_TITLE}<br /><em>{SITE_DESCRIPTION}</em></p>
+      <p>{SITE_TITLE}<br /><em>{t.descripcion}</em></p>
     </div>
     <div class="foot-col">
-      <div class="foot-h">SECCIONES</div>
-      <a href={url('/escritos/')}>Análisis</a>
-      <a href={url('/publicaciones/')}>Publicaciones</a>
-      <a href={url('/sobre-mi/')}>Sobre mí</a>
-      <a href={url('/escribeme/')}>Escríbeme</a>
+      <div class="foot-h">{t.pie.secciones}</div>
+      <a href={url(RUTAS.analisis[lang])}>{t.nav.analisis}</a>
+      <a href={url(RUTAS.publicaciones[lang])}>{t.nav.publicaciones}</a>
+      <a href={url(RUTAS.sobre[lang])}>{t.nav.sobre}</a>
+      <a href={url(RUTAS.contacto[lang])}>{t.nav.contacto}</a>
     </div>
     <div class="foot-col">
-      <div class="foot-h">SEGUIR</div>
+      <div class="foot-h">{t.pie.seguir}</div>
       <a href={LINKEDIN}>LinkedIn</a>
       <a href={`mailto:${EMAIL}`}>Email</a>
-      <a href={url('/rss.xml')}>RSS</a>
+      <a href={url(RUTAS.rss[lang])}>RSS</a>
     </div>
   </div>
-  <div class="foot-legal">© {anio} {SITE_TITLE}. Opiniones a título personal. Imágenes con licencia libre, créditos en cada artículo.</div>
+  <div class="foot-legal">© {anio} {SITE_TITLE}. {t.pie.legal}</div>
 </footer>

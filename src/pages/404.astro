@@ -2,10 +2,10 @@
 import Base from '../layouts/Base.astro';
 import { url } from '../utils';
 ---
-<Base title="Página no encontrada">
+<Base title="Página no encontrada · Page not found">
   <div class="contact" style="border-top:none;padding:110px 0 120px">
     <h2>Esta página no existe</h2>
-    <p>Puede que el enlace haya cambiado o que el análisis ya no esté publicado.</p>
-    <a class="mail" href={url('/escritos/')}>Ver todos los análisis</a>
+    <p>Puede que el enlace haya cambiado o que el análisis ya no esté publicado.<br /><em>This page does not exist.</em></p>
+    <a class="mail" href={url('/escritos/')}>Ver los análisis</a> &nbsp; <a class="mail" href={url('/en/analysis/')}>See the analyses</a>
   </div>
 </Base>

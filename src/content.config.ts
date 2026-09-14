@@ -15,6 +15,8 @@ const escritos = defineCollection({
     imagen: z.string().optional(),
     imagenAlt: z.string().optional(),
     imagenCredito: z.string().optional(),
+    // Solo en entradas inglesas (src/content/escritos/en/): id de la versión española, p. ej. "chips-act-caso-espanol".
+    original: z.string().optional(),
   }),
 });
 

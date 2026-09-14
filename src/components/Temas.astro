@@ -1,13 +1,14 @@
 ---
 import { temasUsados, colorTema, url } from '../utils';
-interface Props { activo?: string }
-const { activo } = Astro.props;
-const temas = await temasUsados();
+import { RUTAS, rutaTema, T, type Lang } from '../i18n';
+interface Props { lang: Lang; activo?: string }
+const { lang, activo } = Astro.props;
+const temas = await temasUsados(lang);
 ---
-<nav class="temas" aria-label="Temas">
-  <a href={url('/escritos/')} class:list={{ on: !activo }}>Todos</a>
+<nav class="temas" aria-label={lang === 'en' ? 'Topics' : 'Temas'}>
+  <a href={url(RUTAS.analisis[lang])} class:list={{ on: !activo }}>{T[lang].todos}</a>
   {temas.map((t) => (
-    <a href={url(`/temas/${t.slug}/`)} class:list={{ on: activo === t.slug }} style={`--tc:${colorTema(t.tema)}`}>
+    <a href={url(rutaTema(lang, t.slug))} class:list={{ on: activo === t.slug }} style={`--tc:${colorTema(t.tema)}`}>
       {t.tema}
     </a>
   ))}

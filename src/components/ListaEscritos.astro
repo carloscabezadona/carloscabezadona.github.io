@@ -1,27 +1,31 @@
 ---
-import { escritosOrdenados, mesAnio, colorTema, slugTema, minutosLectura, url, type Escrito } from '../utils';
+import { mesAnio, colorTema, slugTema, slugDe, minutosLectura, url, type Escrito } from '../utils';
+import { rutaArticulo, rutaTema, T, type Lang } from '../i18n';
 
-interface Props { limite?: number; desde?: number; lista?: Escrito[] }
-const { limite, desde = 0, lista } = Astro.props;
-const escritos = (lista ?? (await escritosOrdenados())).slice(desde, limite === undefined ? undefined : desde + limite);
+interface Props { lista: Escrito[]; lang: Lang; limite?: number; desde?: number }
+const { lista, lang, limite, desde = 0 } = Astro.props;
+const escritos = lista.slice(desde, limite === undefined ? undefined : desde + limite);
 ---
 <div class="writing">
-  {escritos.map((e) => (
-    <div class:list={['item', { 'con-img': e.data.imagen }]} style={`--tc:${colorTema(e.data.tema)}`}>
-      <div class="meta">
-        {mesAnio(e.data.fecha)}<br />
-        <a class="tema" href={url(`/temas/${slugTema(e.data.tema)}/`)}>{e.data.tema.toUpperCase()}</a><br />
-        <span class="min">{minutosLectura(e)} MIN</span>
+  {escritos.map((e) => {
+    const href = url(rutaArticulo(lang, slugDe(e)));
+    return (
+      <div class:list={['item', { 'con-img': e.data.imagen }]} style={`--tc:${colorTema(e.data.tema)}`}>
+        <div class="meta">
+          {mesAnio(e.data.fecha, lang)}<br />
+          <a class="tema" href={url(rutaTema(lang, slugTema(e.data.tema)))}>{e.data.tema.toUpperCase()}</a><br />
+          <span class="min">{minutosLectura(e)} {T[lang].min}</span>
+        </div>
+        <div>
+          <h3><a href={href}>{e.data.titulo}</a></h3>
+          <div class="dek">{e.data.descripcion}</div>
+        </div>
+        {e.data.imagen && (
+          <a class="thumb" href={href} tabindex="-1" aria-hidden="true">
+            <img src={url(e.data.imagen)} alt="" loading="lazy" />
+          </a>
+        )}
       </div>
-      <div>
-        <h3><a href={url(`/escritos/${e.id}/`)}>{e.data.titulo}</a></h3>
-        <div class="dek">{e.data.descripcion}</div>
-      </div>
-      {e.data.imagen && (
-        <a class="thumb" href={url(`/escritos/${e.id}/`)} tabindex="-1" aria-hidden="true">
-          <img src={url(e.data.imagen)} alt="" loading="lazy" />
-        </a>
-      )}
-    </div>
-  ))}
+    );
+  })}
 </div>

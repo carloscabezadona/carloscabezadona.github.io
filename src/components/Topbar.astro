@@ -1,21 +1,28 @@
 ---
 import { EMAIL, LINKEDIN } from '../consts';
+import { RUTAS, T, type Lang } from '../i18n';
 import { url } from '../utils';
 
-const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/escritos/', label: 'Análisis' },
-  { href: '/publicaciones/', label: 'Publicaciones' },
-  { href: '/sobre-mi/', label: 'Sobre mí' },
-  { href: '/escribeme/', label: 'Escríbeme' },
-];
+interface Props { lang: Lang; alt: string }
+const { lang, alt } = Astro.props;
+const t = T[lang];
+
+const links = (['inicio', 'analisis', 'publicaciones', 'sobre', 'contacto'] as const).map((k) => ({
+  href: RUTAS[k][lang],
+  label: t.nav[k],
+}));
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const current = ('/' + Astro.url.pathname.slice(base.length).replace(/^\/|\/$/g, '') + '/').replace('//', '/');
-const isOn = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
+const temas = lang === 'en' ? '/en/topics/' : '/temas/';
+const isOn = (href: string) => {
+  if (href === RUTAS.inicio[lang]) return current === href;
+  if (href === RUTAS.analisis[lang]) return current.startsWith(href) || current.startsWith(temas);
+  return current.startsWith(href);
+};
 ---
 <div class="topbar">
-  <a class="monogram" href={url('/')} style="text-decoration:none" aria-label="Inicio">
+  <a class="monogram" href={url(RUTAS.inicio[lang])} aria-label={t.nav.inicio}>
     C
     <svg class="leaf" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M12 22c0-8 3-13 9-15-1 9-4 13-9 15Z" fill="#3D6B4A" opacity=".85"/>
@@ -28,5 +35,9 @@ const isOn = (href: string) => (href === '/' ? current === '/' : current.startsW
       <a href={url(l.href)} class={isOn(l.href) ? 'on' : undefined}>{l.label}</a>
     ))}
   </nav>
-  <div class="topright"><a href={LINKEDIN} title="LinkedIn">LI</a><a href={`mailto:${EMAIL}`} title="Email">EM</a></div>
+  <div class="topright">
+    <a href={url(alt)} class="idioma" hreflang={lang === 'es' ? 'en' : 'es'} title={t.otroIdioma.largo}>{t.otroIdioma.corto}</a>
+    <a href={LINKEDIN} title="LinkedIn">LI</a>
+    <a href={`mailto:${EMAIL}`} title="Email">EM</a>
+  </div>
 </div>

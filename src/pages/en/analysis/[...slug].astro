@@ -1,0 +1,9 @@
+---
+import Articulo from '../../../views/Articulo.astro';
+import { escritosOrdenados, slugDe } from '../../../utils';
+
+export async function getStaticPaths() {
+  return (await escritosOrdenados('en')).map((entrada) => ({ params: { slug: slugDe(entrada) }, props: { entrada } }));
+}
+---
+<Articulo entrada={Astro.props.entrada} lang="en" />

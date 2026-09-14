@@ -1,8 +1,10 @@
 ---
-import { mesAnio, colorTema, slugTema, minutosLectura, url, type Escrito } from '../utils';
-interface Props { entrada: Escrito }
-const { entrada: e } = Astro.props;
-const href = url(`/escritos/${e.id}/`);
+import { mesAnio, colorTema, slugTema, slugDe, minutosLectura, url, type Escrito } from '../utils';
+import { rutaArticulo, rutaTema, T, type Lang } from '../i18n';
+interface Props { entrada: Escrito; lang: Lang }
+const { entrada: e, lang } = Astro.props;
+const t = T[lang];
+const href = url(rutaArticulo(lang, slugDe(e)));
 ---
 <div class:list={['destacado', { 'sin-img': !e.data.imagen }]} style={`--tc:${colorTema(e.data.tema)}`}>
   {e.data.imagen && (
@@ -12,12 +14,12 @@ const href = url(`/escritos/${e.id}/`);
   )}
   <div class="d-txt">
     <div class="d-kicker">
-      <span>ÚLTIMO ANÁLISIS</span>
-      <a class="tema" href={url(`/temas/${slugTema(e.data.tema)}/`)}>{e.data.tema.toUpperCase()}</a>
+      <span>{t.ultimo}</span>
+      <a class="tema" href={url(rutaTema(lang, slugTema(e.data.tema)))}>{e.data.tema.toUpperCase()}</a>
     </div>
     <h3><a href={href}>{e.data.titulo}</a></h3>
     <p class="dek">{e.data.descripcion}</p>
-    <div class="d-meta">{mesAnio(e.data.fecha)} &nbsp;·&nbsp; {minutosLectura(e)} MIN DE LECTURA</div>
-    <a class="d-more" href={href}>Leer el análisis <span aria-hidden="true">→</span></a>
+    <div class="d-meta">{mesAnio(e.data.fecha, lang)} &nbsp;·&nbsp; {minutosLectura(e)} {t.minLectura}</div>
+    <a class="d-more" href={href}>{t.leer} <span aria-hidden="true">→</span></a>
   </div>
 </div>

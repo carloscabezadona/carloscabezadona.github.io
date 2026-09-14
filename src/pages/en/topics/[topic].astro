@@ -1,0 +1,14 @@
+---
+import TemaPagina from '../../../views/TemaPagina.astro';
+import { escritosOrdenados, temasUsados, slugTema } from '../../../utils';
+
+export async function getStaticPaths() {
+  const todos = await escritosOrdenados('en');
+  return (await temasUsados('en')).map((t) => ({
+    params: { topic: t.slug },
+    props: { nombre: t.tema, lista: todos.filter((e) => slugTema(e.data.tema) === t.slug) },
+  }));
+}
+const { nombre, lista } = Astro.props;
+---
+<TemaPagina lang="en" slug={Astro.params.topic} nombre={nombre} lista={lista} />

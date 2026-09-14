@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ListaEscritos from '../components/ListaEscritos.astro';
+import Destacado from '../components/Destacado.astro';
+import Temas from '../components/Temas.astro';
+import Secciones from '../components/Secciones.astro';
+import { escritosOrdenados, url } from '../utils';
+import { RUTAS, T, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+const escritos = await escritosOrdenados(lang);
+const LIMITE = 5;
+---
+<Base lang={lang} alt={RUTAS.inicio[lang === 'es' ? 'en' : 'es']}>
+  <Hero lang={lang} />
+
+  <div class="statement">
+    <div class="narrow">
+      <p>{t.statement}</p>
+      <div class="hand">{t.statementHand}</div>
+    </div>
+  </div>
+
+  <div class="band warm">
+    <div class="band-inner">
+      <h2 class="eyebrow">{t.nav.analisis}</h2>
+      <p class="eyebrow-note">{t.analisisNota}</p>
+      {escritos[0] && <Destacado entrada={escritos[0]} lang={lang} />}
+      <Temas lang={lang} />
+      <ListaEscritos lista={escritos} lang={lang} desde={1} limite={LIMITE} />
+      {escritos.length > LIMITE + 1 && (
+        <p class="ver-todos"><a href={url(RUTAS.analisis[lang])}>{t.verTodos}</a></p>
+      )}
+    </div>
+  </div>
+
+  <Secciones seccion="publicaciones" lang={lang} />
+  <Secciones seccion="sobre-mi" lang={lang} warm />
+  <Secciones seccion="escribeme" lang={lang} />
+</Base>

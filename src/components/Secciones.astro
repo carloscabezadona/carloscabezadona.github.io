@@ -1,17 +1,19 @@
 ---
 // Bloques estáticos compartidos entre la portada y sus páginas propias.
 import { EMAIL, PUBLICACIONES } from '../consts';
+import { T, type Lang } from '../i18n';
 import { url } from '../utils';
-interface Props { seccion: 'publicaciones' | 'sobre-mi' | 'escribeme'; warm?: boolean }
-const { seccion, warm = false } = Astro.props;
+interface Props { seccion: 'publicaciones' | 'sobre-mi' | 'escribeme'; lang: Lang; warm?: boolean }
+const { seccion, lang, warm = false } = Astro.props;
+const t = T[lang];
 ---
 {seccion === 'publicaciones' && (
   <div class:list={['band', { warm }]}>
     <div class="band-inner">
-      <h2 class="eyebrow">Publicaciones</h2>
-      <p class="eyebrow-note">Policy briefs, trabajos académicos e investigación aplicada.</p>
+      <h2 class="eyebrow">{t.nav.publicaciones}</h2>
+      <p class="eyebrow-note">{t.pubsNota}</p>
       <div class="pub-list">
-        {PUBLICACIONES.map((p) => (
+        {PUBLICACIONES[lang].map((p) => (
           <div class="pub">
             <div class="t">{p.t}</div>
             <div class="src">{p.src}</div>
@@ -26,20 +28,32 @@ const { seccion, warm = false } = Astro.props;
   <div class:list={['band', { warm }]}>
     <div class="band-inner">
       <img class="retrato" src={url('/imagenes/carlos-cabeza.jpg')} alt="Carlos Cabeza Doña" width="400" height="400" loading="lazy" />
-      <h2 class="eyebrow">Sobre mí</h2>
-      <div class="about-text">
-        <p>Soy jurista, de Barcelona, y trabajo en asuntos europeos desde Bruselas. Me formé en Derecho y Gestión Pública y hoy estoy vinculado al Colegio de Europa.</p>
-        <p>Me interesa el recorrido completo de una norma europea: cómo se propone en la Comisión, cómo se negocia entre el Parlamento y el Consejo, y qué ocurre cuando llega a una empresa, una región o un sector concreto. Clima, energía, industria, comercio y digital son los ámbitos que más sigo.</p>
-        <p class="fine">Escribo a título personal. Nada de lo que hay aquí representa la posición de ninguna institución.</p>
-      </div>
+      <h2 class="eyebrow">{t.sobreTitulo}</h2>
+      {lang === 'es' ? (
+        <div class="about-text">
+          <p>Soy abogado, de Barcelona, y trabajo en asuntos europeos desde Bruselas. Estudié Derecho y Gestión Pública y después cursé el Máster en Estudios Políticos y de Gobernanza Europea en el College of Europe, en Brujas.</p>
+          <p>En el College of Europe trabajé en investigación aplicada para instituciones europeas: un policy brief sobre la simplificación del mecanismo de ajuste en frontera por carbono (CBAM), con el Institut d'Études Européennes de la ULB, y el proyecto TellUs sobre ecosistemas regionales de innovación para la Dirección General de Investigación e Innovación de la Comisión.</p>
+          <p>Actualmente hago prácticas en la Comisión Europea.</p>
+          <p>Me interesa el recorrido completo de una norma europea: cómo se propone en la Comisión, cómo se negocia entre el Parlamento y el Consejo, y qué ocurre cuando llega a una empresa, una región o un sector concreto. Clima, energía, industria, comercio y digital son los ámbitos que más sigo.</p>
+          <p class="fine">Escribo a título personal. Nada de lo que hay aquí representa la posición de la Comisión Europea ni de ninguna otra institución.</p>
+        </div>
+      ) : (
+        <div class="about-text">
+          <p>I am a lawyer from Barcelona working on EU affairs in Brussels. I studied Law and Public Management, and then completed the Master's in European Political and Governance Studies at the College of Europe in Bruges.</p>
+          <p>At the College of Europe I worked on applied research for EU institutions: a policy brief on the simplification of the Carbon Border Adjustment Mechanism (CBAM), with the Institute for European Studies at ULB, and the TellUs project on regional innovation ecosystems for the Commission's Directorate-General for Research and Innovation.</p>
+          <p>I am currently a trainee at the European Commission.</p>
+          <p>I am interested in the full life cycle of an EU rule: how the Commission proposes it, how the Parliament and the Council negotiate it, and what happens when it reaches a company, a region or a specific sector. Climate, energy, industry, trade and digital policy are the areas I follow most closely.</p>
+          <p class="fine">I write in a personal capacity. Nothing here represents the position of the European Commission or any other institution.</p>
+        </div>
+      )}
     </div>
   </div>
 )}
 
 {seccion === 'escribeme' && (
   <div class="contact">
-    <h2>Escríbeme</h2>
-    <p>Si trabajas en políticas europeas, en una administración o en un sector afectado por estas normas, me interesa conocer tu punto de vista.</p>
+    <h2>{t.contactoTitulo}</h2>
+    <p>{t.contactoTexto}</p>
     <a class="mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
   </div>
 )}

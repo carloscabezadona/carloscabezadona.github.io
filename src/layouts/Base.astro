@@ -2,10 +2,14 @@
 import '../styles/global.css';
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN, GOATCOUNTER } from '../consts';
+import { SITE_TITLE, LINKEDIN, GOATCOUNTER } from '../consts';
+import { RUTAS, T, type Lang } from '../i18n';
 import { url } from '../utils';
 
 interface Props {
+  lang?: Lang;
+  /** Ruta equivalente en el otro idioma (sin base). */
+  alt?: string;
   title?: string;
   description?: string;
   type?: 'website' | 'article';
@@ -14,18 +18,24 @@ interface Props {
   section?: string;
 }
 
-const { title, description = SITE_DESCRIPTION, type = 'website', publishedTime, image, section } = Astro.props;
+const { lang = 'es', title, type = 'website', publishedTime, image, section } = Astro.props;
+const t = T[lang];
+const otro: Lang = lang === 'es' ? 'en' : 'es';
+const alt = Astro.props.alt ?? RUTAS.inicio[otro];
+const description = Astro.props.description ?? t.descripcion;
 const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const altUrl = new URL(url(alt), Astro.site);
 const ogImage = new URL(url(image ?? '/og.png'), Astro.site);
-const inicio = new URL(url('/'), Astro.site).toString();
+const inicio = new URL(url(RUTAS.inicio[lang]), Astro.site).toString();
 
 // Datos estructurados (schema.org) para buscadores.
 const autor = {
   '@type': 'Person',
   name: SITE_TITLE,
-  url: new URL(url('/sobre-mi/'), Astro.site).toString(),
-  jobTitle: 'Jurista, asuntos europeos',
+  url: new URL(url(RUTAS.sobre[lang]), Astro.site).toString(),
+  jobTitle: lang === 'en' ? 'Lawyer, EU affairs' : 'Abogado, asuntos europeos',
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'College of Europe' },
   sameAs: [LINKEDIN],
 };
 const jsonLd = type === 'article'
@@ -36,7 +46,7 @@ const jsonLd = type === 'article'
       description,
       image: [ogImage.toString()],
       datePublished: publishedTime?.toISOString(),
-      inLanguage: 'es',
+      inLanguage: lang,
       articleSection: section,
       mainEntityOfPage: canonical.toString(),
       author: autor,
@@ -46,28 +56,32 @@ const jsonLd = type === 'article'
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: SITE_TITLE,
-      description: SITE_DESCRIPTION,
+      description,
       url: inicio,
-      inLanguage: 'es',
+      inLanguage: lang,
       author: autor,
     };
 ---
 <!doctype html>
-<html lang="es">
+<html lang={t.htmlLang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang={lang} href={canonical} />
+  <link rel="alternate" hreflang={otro} href={altUrl} />
+  <link rel="alternate" hreflang="x-default" href={lang === 'es' ? canonical : altUrl} />
   <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
   <link rel="sitemap" href={url('/sitemap-index.xml')} />
-  <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={url('/rss.xml')} />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} (${lang.toUpperCase()})`} href={url(RUTAS.rss[lang])} />
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content={type} />
   <meta property="og:site_name" content={SITE_TITLE} />
-  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale" content={t.locale} />
+  <meta property="og:locale:alternate" content={T[otro].locale} />
   <meta property="og:title" content={title ?? SITE_TITLE} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -75,12 +89,12 @@ const jsonLd = type === 'article'
   {!image && <meta property="og:image:width" content="1200" />}
   {!image && <meta property="og:image:height" content="630" />}
   {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+  {section && <meta property="article:section" content={section} />}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title ?? SITE_TITLE} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
-  {section && <meta property="article:section" content={section} />}
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   {GOATCOUNTER && (
     <script is:inline data-goatcounter={`https://${GOATCOUNTER}.goatcounter.com/count`} async src="https://gc.zgo.at/count.js"></script>
@@ -91,8 +105,8 @@ const jsonLd = type === 'article'
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <Topbar />
+  <Topbar lang={lang} alt={alt} />
   <slot />
-  <Footer />
+  <Footer lang={lang} />
 </body>
 </html>

@@ -5,7 +5,9 @@ Modelo de tono: el policy brief «The CBAM after Omnibus I» (College of Europe 
 
 ## Quién escribe
 
-Carlos Cabeza Doña. Jurista, de Barcelona, trabaja en asuntos europeos desde Bruselas, vinculado al Colegio de Europa. Formación en Derecho y Gestión Pública. Escribe **a título personal**.
+Carlos Cabeza Doña. Abogado, de Barcelona, trabaja en asuntos europeos desde Bruselas. Estudió Derecho y Gestión Pública y el Máster en Estudios Políticos y de Gobernanza Europea (European Political and Governance Studies) en el College of Europe (Brujas). Actualmente, en prácticas en la Comisión Europea. Escribe **a título personal**.
+
+**Cautela institucional:** por sus prácticas en la Comisión, los análisis se basan **solo en información pública** y nunca aluden a expedientes internos, reuniones o posiciones no publicadas. Tono analítico, no de portavoz: se evitan valoraciones personales duras sobre comisarios, gabinetes o servicios concretos de la Comisión.
 
 ## De qué va la web
 
@@ -106,8 +108,18 @@ Cada análisis lleva **una imagen** que se muestra bajo el título y se usa al c
 - **Crédito obligatorio** en `imagenCredito`, con autor, fuente y licencia exactos según los metadatos.
 - Si no hay una imagen adecuada con licencia clara, **mejor sin imagen** que una dudosa.
 
+## Versión en inglés
+
+Cada análisis tiene versión inglesa en `src/content/escritos/en/<slug-en-ingles>.md`, con el mismo frontmatter traducido y `original: "<id-de-la-version-española>"`.
+
+- `tema` en inglés: EU, Digital, Sustainability, Energy, Water, Industry, Trade, Spain, Current affairs.
+- Inglés británico (analyse, programme, defence), tono de policy brief. Bloques: KEY MESSAGES, WHAT TO WATCH, Main sources.
+- Siglas en su forma inglesa (EU ETS, SMEs). Enlaces a la versión inglesa de las fuentes cuando exista; si la fuente solo está en español, añadir «(in Spanish)».
+- Misma imagen, `imagenAlt` e `imagenCredito` traducidos.
+- No es una traducción literal: se adapta el contexto español para un lector europeo (p. ej. explicar qué es el BOE o una comunidad autónoma).
+
 ## Flujo de borradores
 
-1. Los borradores se crean con `borrador: true` en `src/content/escritos/` y **no se suben a GitHub** (el repo es público).
+1. Los borradores (español e inglés) se crean con `borrador: true` en `src/content/escritos/` y `src/content/escritos/en/`, y **no se suben a GitHub** (el repo es público).
 2. Carlos los revisa. Para publicar: `borrador: false`, revisar la fecha, y `git add . && git commit -m "..." && git push`.
 3. Los descartados se borran.

@@ -335,6 +335,13 @@ article .body h2{padding-top:10px;border-top:1px solid var(--line);}
 .sigue-card:hover .t{color:var(--green);}
 .sigue-card .m{font-size:0.72rem;letter-spacing:0.08em;color:var(--soft);}
 
+/* idiomas */
+.topright a.idioma{color:var(--green-d);font-weight:500;border:1px solid var(--line);border-radius:99px;padding:0 8px;}
+.topright a.idioma:hover{border-color:var(--green);}
+article .art-idioma{text-align:center;font-size:0.8rem;margin:14px 0 0;}
+article .art-idioma a{color:var(--green-d);text-decoration:none;border-bottom:1px solid var(--line);}
+article .art-idioma a:hover{border-bottom-color:var(--green);}
+
 /* retrato */
 .retrato{
   display:block;width:168px;height:168px;max-width:100%;border-radius:50%;object-fit:cover;object-position:50% 20%;

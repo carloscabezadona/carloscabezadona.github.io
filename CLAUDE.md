@@ -9,6 +9,8 @@ Sitio estático en Astro 5, publicado en https://carloscabezadona.github.io (rep
 - **Sin datos inventados.** Toda cifra, fecha, cita o referencia normativa lleva fuente enlazada y verificada. Lo que no se pueda verificar, fuera.
 - **Imágenes solo con licencia libre** (Wikimedia Commons CC0/CC BY/CC BY-SA, Flickr oficial del PE o del Consejo con CC), siempre con crédito en `imagenCredito`. Mejor sin imagen que con una dudosa.
 - La foto de Carlos (`public/imagenes/carlos-cabeza.jpg`) es solo para «Sobre mí» salvo que él pida otra cosa.
+- **Perfil público:** abogado; Máster en Estudios Políticos y de Gobernanza Europea, College of Europe (Brujas); en prácticas en la Comisión Europea. **No mencionar en la web ni en el repo en qué unidad o gabinete de la Comisión trabaja.** Contenido basado solo en información pública.
+- **Web bilingüe.** Todo cambio de texto se hace en español y en inglés (`src/i18n.ts`, `Secciones.astro`, `consts.ts`), y cada análisis publicado tiene su versión en `src/content/escritos/en/`.
 
 ## Voz y contenido
 
@@ -17,14 +19,18 @@ Resumen: análisis de política europea en clave institucional; tono profesional
 
 ## Estructura
 
-- `src/content/escritos/*.md` — entradas. Frontmatter validado en `src/content.config.ts`: `titulo`, `fecha`, `tema`, `descripcion`, `borrador?`, `nota?`, `imagen?`, `imagenAlt?`, `imagenCredito?`.
-- `tema` ∈ UE, Digital, Sostenibilidad, Energía, Agua, Industria, Comercio, España, Actualidad. Colores en `TEMA_COLORES` (`src/consts.ts`).
-- `src/consts.ts` — título, email (`carloscabezadona@gmail.com`), LinkedIn, GoatCounter, publicaciones.
-- `src/components/Secciones.astro` — textos de Publicaciones, Sobre mí y Escríbeme.
-- `src/utils.ts` — `url()` (respeta `base`, úsalo en todo enlace interno), fechas, tiempo de lectura, temas, relacionados.
+- `src/content/escritos/*.md` — entradas en español; `src/content/escritos/en/*.md` — en inglés (con `original: "<id español>"`). Frontmatter validado en `src/content.config.ts`: `titulo`, `fecha`, `tema`, `descripcion`, `borrador?`, `nota?`, `imagen?`, `imagenAlt?`, `imagenCredito?`, `original?`.
+- `tema` ∈ UE, Digital, Sostenibilidad, Energía, Agua, Industria, Comercio, España, Actualidad (en inglés: EU, Digital, Sustainability, Energy, Water, Industry, Trade, Spain, Current affairs). Colores en `TEMA_COLORES` (`src/consts.ts`).
+- `src/i18n.ts` — rutas y textos de interfaz en ES/EN.
+- `src/views/` — plantillas compartidas (Inicio, Listado, Articulo, TemaPagina); `src/pages/` solo tiene envoltorios por idioma.
+- `src/consts.ts` — título, email (`carloscabezadona@gmail.com`), LinkedIn, GoatCounter, publicaciones (ES/EN).
+- `src/components/Secciones.astro` — textos de Publicaciones, Sobre mí y Escríbeme (ES/EN).
+- `src/utils.ts` — `url()` (respeta `base`, úsalo en todo enlace interno), fechas, tiempo de lectura, temas, relacionados, `idioma()`, `traduccion()`.
 - `src/styles/global.css` — CSS original del diseño arriba; añadidos debajo, marcados con comentarios.
 - `public/imagenes/` — imágenes de artículos, 1600×900 JPG (sharp: `resize(1600,900,{fit:'cover'}).jpeg({quality:80,mozjpeg:true})`).
-- Rutas: `/`, `/escritos/`, `/escritos/<archivo>/`, `/temas/<tema>/`, `/publicaciones/`, `/sobre-mi/`, `/escribeme/`, `/rss.xml`, `/sitemap-index.xml`, `404`.
+- Rutas ES: `/`, `/escritos/`, `/escritos/<archivo>/`, `/temas/<tema>/`, `/publicaciones/`, `/sobre-mi/`, `/escribeme/`, `/rss.xml`.
+- Rutas EN: `/en/`, `/en/analysis/`, `/en/analysis/<file>/`, `/en/topics/<topic>/`, `/en/publications/`, `/en/about/`, `/en/contact/`, `/en/rss.xml`.
+- Comunes: `/sitemap-index.xml`, `404`. Cada página declara `hreflang` y un enlace ES/EN en la barra superior.
 
 ## Comandos
 

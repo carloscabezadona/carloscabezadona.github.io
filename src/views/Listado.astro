@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import ListaEscritos from '../components/ListaEscritos.astro';
+import Temas from '../components/Temas.astro';
+import { escritosOrdenados } from '../utils';
+import { RUTAS, T, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+---
+<Base lang={lang} alt={RUTAS.analisis[lang === 'es' ? 'en' : 'es']} title={t.nav.analisis} description={t.analisisNota}>
+  <div class="band warm">
+    <div class="band-inner">
+      <h1 class="eyebrow">{t.nav.analisis}</h1>
+      <p class="eyebrow-note">{t.analisisNota}</p>
+      <Temas lang={lang} />
+      <ListaEscritos lista={await escritosOrdenados(lang)} lang={lang} />
+    </div>
+  </div>
+</Base>
