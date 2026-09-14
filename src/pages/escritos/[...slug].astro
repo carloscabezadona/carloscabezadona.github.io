@@ -1,0 +1,29 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { escritosOrdenados, mesAnio, url } from '../../utils';
+
+export async function getStaticPaths() {
+  const escritos = await escritosOrdenados();
+  return escritos.map((entrada) => ({ params: { slug: entrada.id }, props: { entrada } }));
+}
+
+const { entrada } = Astro.props;
+const { Content } = await render(entrada);
+const { titulo, fecha, tema, descripcion } = entrada.data;
+---
+<Base title={titulo} description={descripcion} type="article" publishedTime={fecha}>
+  <article>
+    <div class="art-meta">{tema.toUpperCase()} &nbsp;·&nbsp; <time datetime={fecha.toISOString()}>{mesAnio(fecha)}</time></div>
+    <h1>{titulo}</h1>
+    <svg class="leafrule" width="46" height="14" viewBox="0 0 46 14" fill="none" aria-hidden="true">
+      <path d="M0 7h16M30 7h16" stroke="#3D6B4A" stroke-width="1" opacity=".4"/>
+      <path d="M23 13c0-4 1.6-6.6 4.6-7.6C27.1 10 25.5 12 23 13Z" fill="#3D6B4A" opacity=".7"/>
+      <path d="M23 13c0-4-1.6-6.6-4.6-7.6C18.9 10 20.5 12 23 13Z" fill="#3D6B4A" opacity=".4"/>
+    </svg>
+    <div class="body">
+      <Content />
+    </div>
+    <div class="back"><a href={url('/escritos/')}>← TODOS LOS ESCRITOS</a></div>
+  </article>
+</Base>

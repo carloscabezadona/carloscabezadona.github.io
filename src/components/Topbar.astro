@@ -1,0 +1,32 @@
+---
+import { EMAIL, LINKEDIN } from '../consts';
+import { url } from '../utils';
+
+const links = [
+  { href: '/', label: 'Inicio' },
+  { href: '/escritos/', label: 'Escritos' },
+  { href: '/publicaciones/', label: 'Publicaciones' },
+  { href: '/sobre-mi/', label: 'Sobre mí' },
+  { href: '/escribeme/', label: 'Escríbeme' },
+];
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const current = ('/' + Astro.url.pathname.slice(base.length).replace(/^\/|\/$/g, '') + '/').replace('//', '/');
+const isOn = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
+---
+<div class="topbar">
+  <a class="monogram" href={url('/')} style="text-decoration:none" aria-label="Inicio">
+    C
+    <svg class="leaf" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 22c0-8 3-13 9-15-1 9-4 13-9 15Z" fill="#3D6B4A" opacity=".85"/>
+      <path d="M12 22C12 14 9 9 3 7c1 9 4 13 9 15Z" fill="#3D6B4A" opacity=".45"/>
+    </svg>
+    C
+  </a>
+  <nav class="topnav">
+    {links.map((l) => (
+      <a href={url(l.href)} class={isOn(l.href) ? 'on' : undefined}>{l.label}</a>
+    ))}
+  </nav>
+  <div class="topright"><a href={LINKEDIN} title="LinkedIn">LI</a><a href={`mailto:${EMAIL}`} title="Email">EM</a></div>
+</div>

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ListaEscritos from '../components/ListaEscritos.astro';
+import Secciones from '../components/Secciones.astro';
+---
+<Base>
+  <Hero />
+
+  <div class="statement">
+    <div class="narrow">
+      <p>Escribo sobre cómo Europa regula lo que escasea.</p>
+      <div class="hand">El agua que falta en verano, la industria que no acaba de llegar, el carbono que cruza fronteras. Son debates que se deciden en Bruselas y se notan en los pueblos. Intento explicarlos sin jerga.</div>
+    </div>
+  </div>
+
+  <div class="band warm">
+    <div class="band-inner">
+      <h2 class="eyebrow">Escritos</h2>
+      <p class="eyebrow-note">Notas breves sobre lo que voy leyendo y siguiendo.</p>
+      <ListaEscritos />
+    </div>
+  </div>
+
+  <Secciones seccion="publicaciones" />
+  <Secciones seccion="sobre-mi" warm />
+  <Secciones seccion="escribeme" />
+</Base>

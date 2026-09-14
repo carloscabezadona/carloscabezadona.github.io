@@ -1,0 +1,65 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+<div class="hero">
+  <svg class="scene" viewBox="0 0 1400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#DCE7DA"/>
+        <stop offset="38%" stop-color="#C3D3BE"/>
+        <stop offset="100%" stop-color="#9DB596"/>
+      </linearGradient>
+      <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7FA3A0"/>
+        <stop offset="100%" stop-color="#4B6E6C"/>
+      </linearGradient>
+      <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7E8F5A"/>
+        <stop offset="100%" stop-color="#54663E"/>
+      </linearGradient>
+    </defs>
+
+    <rect width="1400" height="500" fill="url(#sky)"/>
+    <circle cx="1120" cy="112" r="46" fill="#F2E4C4" opacity=".65"/>
+
+    <!-- hills -->
+    <path d="M0 250 C 190 202, 360 240, 540 214 C 720 188, 880 232, 1060 206 C 1200 186, 1310 214, 1400 200 L1400 300 L0 300 Z" fill="#8CA285" opacity=".8"/>
+    <path d="M0 282 C 200 246, 380 282, 570 258 C 760 234, 930 274, 1120 250 C 1250 234, 1330 258, 1400 246 L1400 330 L0 330 Z" fill="#77906F" opacity=".9"/>
+
+    <!-- river -->
+    <path d="M0 340 C 250 322, 470 356, 700 336 C 930 316, 1150 350, 1400 330 L1400 402 C 1150 420, 930 388, 700 406 C 470 424, 250 392, 0 410 Z" fill="url(#water)"/>
+    <g stroke="#CFE0DA" fill="none" opacity=".35" stroke-width="1">
+      <path d="M120 356 C 300 348, 470 368, 660 356"/>
+      <path d="M400 380 C 600 370, 800 390, 1010 376"/>
+      <path d="M840 358 C 1000 350, 1180 366, 1340 354"/>
+    </g>
+
+    <!-- fields -->
+    <path d="M0 408 C 250 390, 470 424, 700 404 C 930 384, 1150 418, 1400 400 L1400 500 L0 500 Z" fill="url(#field)"/>
+    <g stroke="#96A86E" opacity=".3" stroke-width="1.2" fill="none">
+      <path d="M0 440 C 300 424, 600 452, 900 434 S 1250 418, 1400 430"/>
+      <path d="M0 468 C 300 452, 600 480, 900 462 S 1250 446, 1400 458"/>
+    </g>
+
+    <!-- trees along the bank -->
+    <g fill="#3F5A3A" opacity=".72">
+      <path d="M190 404c0-16 7-27 16-27s16 11 16 27Z"/>
+      <path d="M244 410c0-14 6-24 14-24s14 10 14 24Z"/>
+      <path d="M1002 398c0-15 7-26 15-26s15 11 15 26Z"/>
+      <path d="M1058 404c0-13 6-23 13-23s13 10 13 23Z"/>
+      <path d="M1110 400c0-16 7-27 15-27s15 11 15 27Z"/>
+    </g>
+
+    <!-- birds -->
+    <g stroke="#4B5B46" fill="none" stroke-width="1.6" opacity=".5">
+      <path d="M300 128 q 10 -8 20 0"/>
+      <path d="M326 116 q 9 -7 18 0"/>
+      <path d="M352 134 q 8 -6 16 0"/>
+    </g>
+  </svg>
+  <div class="veil"></div>
+  <div class="inner">
+    <h1>{SITE_TITLE}</h1>
+    <div class="sub">{SITE_DESCRIPTION}</div>
+  </div>
+</div>

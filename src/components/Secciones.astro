@@ -1,0 +1,43 @@
+---
+// Bloques estáticos compartidos entre la portada y sus páginas propias.
+import { EMAIL, PUBLICACIONES } from '../consts';
+interface Props { seccion: 'publicaciones' | 'sobre-mi' | 'escribeme'; warm?: boolean }
+const { seccion, warm = false } = Astro.props;
+---
+{seccion === 'publicaciones' && (
+  <div class:list={['band', { warm }]}>
+    <div class="band-inner">
+      <h2 class="eyebrow">Publicaciones</h2>
+      <p class="eyebrow-note">Trabajos académicos y de investigación.</p>
+      <div class="pub-list">
+        {PUBLICACIONES.map((p) => (
+          <div class="pub">
+            <div class="t">{p.t}</div>
+            <div class="src">{p.src}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{seccion === 'sobre-mi' && (
+  <div class:list={['band', { warm }]}>
+    <div class="band-inner">
+      <h2 class="eyebrow">Sobre mí</h2>
+      <div class="about-text">
+        <p>Soy jurista, de Barcelona, y vivo en Bruselas. Estudié Derecho y Gestión Pública, y desde entonces me dedico a asuntos europeos.</p>
+        <p>Me interesa lo que pasa cuando una norma europea aterriza en un territorio concreto: un río, una comarca, una fábrica que no se construye. De eso van estas notas.</p>
+        <p class="fine">Escribo a título personal. Nada de lo que hay aquí representa la posición de ninguna institución.</p>
+      </div>
+    </div>
+  </div>
+)}
+
+{seccion === 'escribeme' && (
+  <div class="contact">
+    <h2>Escríbeme</h2>
+    <p>Si trabajas en esto, o simplemente te interesa, me gusta que me cuenten cosas.</p>
+    <a class="mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+  </div>
+)}

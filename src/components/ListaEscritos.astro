@@ -1,0 +1,18 @@
+---
+import { escritosOrdenados, mesAnio, colorTema, url } from '../utils';
+
+interface Props { limite?: number }
+const { limite } = Astro.props;
+const escritos = (await escritosOrdenados()).slice(0, limite);
+---
+<div class="writing">
+  {escritos.map((e) => (
+    <div class="item" style={`--tc:${colorTema(e.data.tema)}`}>
+      <div class="meta">{mesAnio(e.data.fecha)}<br /><span class="tema">{e.data.tema.toUpperCase()}</span></div>
+      <div>
+        <h3><a href={url(`/escritos/${e.id}/`)}>{e.data.titulo}</a></h3>
+        <div class="dek">{e.data.descripcion}</div>
+      </div>
+    </div>
+  ))}
+</div>
