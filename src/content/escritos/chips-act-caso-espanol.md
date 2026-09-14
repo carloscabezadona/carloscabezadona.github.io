@@ -2,6 +2,7 @@
 titulo: "Lo que el Chips Act no resolvió: el caso español"
 fecha: 2026-09-01
 tema: Industria
+borrador: true
 descripcion: "Por qué España no ha conseguido atraer fabricación de semiconductores pese a los fondos disponibles."
 ---
 

@@ -9,6 +9,8 @@ const escritos = defineCollection({
     tema: z.string(),
     descripcion: z.string(),
     borrador: z.boolean().default(false),
+    // Opcional: origen o coautoría, se muestra bajo el título.
+    nota: z.string().optional(),
   }),
 });
 

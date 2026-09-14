@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'Carlos Cabeza Doña';
-export const SITE_DESCRIPTION = 'Agua, tierra y las normas que las gobiernan';
+export const SITE_DESCRIPTION = 'Política europea, de Bruselas al territorio';
 export const EMAIL = 'carlos.cabezadona@coleurope.eu';
 export const LINKEDIN = 'https://www.linkedin.com/in/carlos--cabeza';
 
@@ -18,8 +18,8 @@ export const TEMA_COLORES: Record<string, string> = {
 
 export const PUBLICACIONES = [
   {
-    t: 'CBAM y el paquete Ómnibus: implicaciones para el comercio y la política de la UE',
-    src: 'Colegio de Europa — IEE · en prensa',
+    t: 'The CBAM after Omnibus I: an assessment of the simplification of the EU Carbon Border Adjustment Mechanism',
+    src: 'Policy brief · College of Europe / IEE-ULB · julio 2026 · con A. Fleury-Isambert, J. Fourré, M. Gülderen y A. Valera Córdoba',
   },
   {
     t: 'Ecosistemas de innovación en Europa: hacia hubs regionales especializados',
