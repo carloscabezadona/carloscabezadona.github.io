@@ -3,6 +3,10 @@ export const SITE_DESCRIPTION = 'Política europea, de Bruselas al territorio';
 export const EMAIL = 'carloscabezadona@gmail.com';
 export const LINKEDIN = 'https://www.linkedin.com/in/carlos--cabeza';
 
+// Analítica sin cookies (GoatCounter). Pon aquí tu código, p. ej. 'carloscabezadona'.
+// Vacío = sin analítica.
+export const GOATCOUNTER = '';
+
 // Color de cada tema (clave en mayúsculas). Si un tema no está, usa el verde.
 export const TEMA_COLORES: Record<string, string> = {
   COMERCIO: '#C89B4A',

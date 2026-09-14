@@ -1,44 +1,45 @@
 # Web personal — Carlos Cabeza Doña
 
-Sitio estático con [Astro](https://astro.build), desplegado en GitHub Pages.
+Sitio estático con [Astro](https://astro.build), publicado en https://carloscabezadona.github.io
 
 ## Local
 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # genera dist/
+npm run verify   # comprueba tipos, compila y revisa enlaces internos
 ```
 
-## Escribir una entrada
+## Escribir un análisis
 
 Crea un `.md` en `src/content/escritos/`. El nombre del archivo es la URL (`/escritos/nombre-del-archivo/`).
+La guía de estilo completa está en [VOZ.md](VOZ.md).
 
 ```md
 ---
-titulo: "Título de la entrada"
+titulo: "Título del análisis"
 fecha: 2026-11-15
-tema: Agua            # Comercio, Industria, Agua… (color en src/consts.ts)
-descripcion: "Una o dos frases para la portada, RSS y Open Graph."
-borrador: false       # true = no se publica
+tema: Energía          # UE, Digital, Sostenibilidad, Energía, Agua, Industria, Comercio, España, Actualidad
+descripcion: "Una frase con la tesis (portada, RSS y redes)."
+imagen: "/imagenes/nombre.jpg"          # opcional, en public/imagenes/
+imagenAlt: "Qué se ve en la imagen."
+imagenCredito: "Qué muestra. Foto: Autor, Fuente, Licencia."
+borrador: false        # true = no se publica
 ---
-
-El primer párrafo se muestra como entradilla.
 ```
 
 ## Qué editar
 
-- `src/consts.ts` — email, LinkedIn, colores por tema, publicaciones.
+- `src/consts.ts` — email, LinkedIn, analítica, colores por tema, publicaciones.
 - `src/components/Secciones.astro` — textos de Sobre mí y Escríbeme.
-- `public/og.png` — imagen para compartir en redes (1200×630).
+- `public/og.png` — imagen por defecto al compartir (1200×630).
 
-## Desplegar en GitHub Pages
+## Incluye
 
-1. Crea un repo en GitHub y sube el proyecto a la rama `main`.
-2. En el repo: **Settings → Pages → Source: GitHub Actions**.
-3. Cada push a `main` compila y publica (`.github/workflows/deploy.yml`).
-   `SITE` y `BASE` se calculan solos, así que funciona tanto en `usuario.github.io` como en `usuario.github.io/repo`.
-4. Dominio propio: añade `public/CNAME` con el dominio y crea la variable de repositorio
-   `CUSTOM_DOMAIN` = `https://tudominio.com`.
+RSS (`/rss.xml`), sitemap (`/sitemap-index.xml`), `robots.txt`, Open Graph y datos estructurados (schema.org) por artículo, páginas por tema, 404, y analítica opcional sin cookies (GoatCounter).
 
-RSS en `/rss.xml`, sitemap en `/sitemap-index.xml`.
+## Despliegue
+
+Cada push a `main` ejecuta `.github/workflows/deploy.yml`: comprueba tipos, compila, revisa enlaces y publica en GitHub Pages. Si algo falla, no se publica y la web sigue con la versión anterior. Las pull requests y otras ramas se comprueban con `ci.yml`.
+
+**Dominio propio:** añade `public/CNAME` con el dominio y crea la variable de repositorio `CUSTOM_DOMAIN` = `https://tudominio.com`.

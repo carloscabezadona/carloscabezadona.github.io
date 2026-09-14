@@ -23,7 +23,7 @@ const compartir = {
   email: `mailto:?subject=${e(titulo)}&body=${e(`${descripcion}\n\n${enlace}`)}`,
 };
 ---
-<Base title={titulo} description={descripcion} type="article" publishedTime={fecha} image={imagen}>
+<Base title={titulo} description={descripcion} type="article" publishedTime={fecha} image={imagen} section={tema}>
   <div class="progreso" aria-hidden="true"><span></span></div>
   <article style={`--tc:${colorTema(tema)}`}>
     <div class="art-meta">

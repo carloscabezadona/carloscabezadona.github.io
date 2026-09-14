@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Topbar from '../components/Topbar.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN, GOATCOUNTER } from '../consts';
 import { url } from '../utils';
 
 interface Props {
@@ -11,12 +11,46 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: Date;
   image?: string;
+  section?: string;
 }
 
-const { title, description = SITE_DESCRIPTION, type = 'website', publishedTime, image } = Astro.props;
+const { title, description = SITE_DESCRIPTION, type = 'website', publishedTime, image, section } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(url(image ?? '/og.png'), Astro.site);
+const inicio = new URL(url('/'), Astro.site).toString();
+
+// Datos estructurados (schema.org) para buscadores.
+const autor = {
+  '@type': 'Person',
+  name: SITE_TITLE,
+  url: new URL(url('/sobre-mi/'), Astro.site).toString(),
+  jobTitle: 'Jurista, asuntos europeos',
+  sameAs: [LINKEDIN],
+};
+const jsonLd = type === 'article'
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description,
+      image: [ogImage.toString()],
+      datePublished: publishedTime?.toISOString(),
+      inLanguage: 'es',
+      articleSection: section,
+      mainEntityOfPage: canonical.toString(),
+      author: autor,
+      publisher: autor,
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      url: inicio,
+      inLanguage: 'es',
+      author: autor,
+    };
 ---
 <!doctype html>
 <html lang="es">
@@ -45,6 +79,12 @@ const ogImage = new URL(url(image ?? '/og.png'), Astro.site);
   <meta name="twitter:title" content={title ?? SITE_TITLE} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
+  {section && <meta property="article:section" content={section} />}
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  {GOATCOUNTER && (
+    <script is:inline data-goatcounter={`https://${GOATCOUNTER}.goatcounter.com/count`} async src="https://gc.zgo.at/count.js"></script>
+  )}
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

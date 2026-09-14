@@ -31,12 +31,21 @@ jobs:
 
       - run: npm ci
 
+      # Si algo de esto falla, no se publica y la web sigue con la versión anterior.
+      - name: Comprobar tipos y frontmatter
+        run: npm run check
+
       - name: Build
         run: npm run build
         env:
           # Si usas dominio propio, define la variable de repositorio CUSTOM_DOMAIN
           # (Settings → Secrets and variables → Actions → Variables), p. ej. https://tudominio.com
           SITE: ${{ vars.CUSTOM_DOMAIN || steps.pages.outputs.origin }}
+          BASE: ${{ vars.CUSTOM_DOMAIN && '/' || format('{0}/', steps.pages.outputs.base_path) }}
+
+      - name: Comprobar enlaces internos
+        run: npm run check:links
+        env:
           BASE: ${{ vars.CUSTOM_DOMAIN && '/' || format('{0}/', steps.pages.outputs.base_path) }}
 
       - uses: actions/upload-pages-artifact@v3
