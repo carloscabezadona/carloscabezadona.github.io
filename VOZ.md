@@ -9,6 +9,8 @@ Carlos Cabeza Doña. Abogado, de Barcelona, trabaja en asuntos europeos desde Br
 
 **Cautela institucional:** por sus prácticas en la Comisión, los análisis se basan **solo en información pública** y nunca aluden a expedientes internos, reuniones o posiciones no publicadas. Tono analítico, no de portavoz: se evitan valoraciones personales duras sobre comisarios, gabinetes o servicios concretos de la Comisión.
 
+**Cautela con la política española:** Carlos es simpatizante del PSOE. Los titulares nunca señalan a España ni al Gobierno español como protagonista de una crítica, aunque el cuerpo del análisis sí trate el caso español con el mismo rigor que el resto. Cuando España comparte una situación con otros Estados miembros (un retraso de transposición, por ejemplo), se cita como uno más del grupo, nunca como el caso destacado del titular. Ni el titular ni el tono general van contra el PSOE.
+
 ## De qué va la web
 
 > Analizo cómo decide Europa y qué cambia eso sobre el terreno.
